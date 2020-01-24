@@ -7,8 +7,9 @@ exports.user_signup = (req, res, next) => {
     .exec()
     .then(user => {
       if (user.length >= 1) {
-        return res.status(409).json({
-          message: "Mail exists"
+        return res.status(200).json({
+          message: "Mail exists",
+          userExists: true
         });
       } else {
         const user = new User({
@@ -18,13 +19,11 @@ exports.user_signup = (req, res, next) => {
         user
           .save()
           .then(result => {
-            console.log(result);
             res.status(201).json({
               message: "User created"
             });
           })
           .catch(err => {
-            console.log(err);
             res.status(500).json({
               error: err
             });
@@ -42,14 +41,12 @@ exports.user_login = (req, res, next) => {
           message: "Auth failed"
         });
       }
-      console.log(user);
       return res.status(200).json({
         message: "Auth successful",
         userId: user._id
       });
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json({
         error: err
       });

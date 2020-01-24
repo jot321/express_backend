@@ -13,6 +13,6 @@ const transactionSchema = mongoose.Schema({
     required: true
   },
   amt: { type: Number, required: true }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("Transaction", transactionSchema);

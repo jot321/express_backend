@@ -24,14 +24,12 @@ exports.add_transaction = (req, res, next) => {
   transaction
     .save()
     .then(result => {
-      console.log(result);
       res.status(201).json({
         message: "Transaction created",
         id: result._id
       });
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json({
         error: err
       });
